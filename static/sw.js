@@ -1,14 +1,13 @@
 self.addEventListener('push', function (event) {
+  const text = event.data.text()
   console.log('[Service Worker] Push Received.')
-  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`)
+  console.log(`[Service Worker] Push had this data: "${text}"`)
 
-  const title = 'Push Codelab'
+  const title = 'Zombie survive app'
   const options = {
-    body: 'Yay it works.',
-    icon: 'images/icon.png',
-    badge: 'images/badge.png'
+    body: text,
+    icon: 'sw-icon.png'
   }
 
   event.waitUntil(self.registration.showNotification(title, options))
 })
-

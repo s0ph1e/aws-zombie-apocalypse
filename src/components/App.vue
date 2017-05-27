@@ -47,6 +47,7 @@
     methods: {
       logout: function () {
         localStorage.removeItem('token')
+        window.dispatchEvent(new Event('logout'))
         this.$router.push('/')
       }
     }

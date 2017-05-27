@@ -7,6 +7,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Landing from './Main.vue'
 import router from './router'
 
+import './utils/registerNotificationsWorker'
+
 Vue.use(VueResource)
 Vue.use(BootstrapVue)
 

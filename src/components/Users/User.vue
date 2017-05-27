@@ -7,7 +7,7 @@
       <br>
       <small v-if="isZombie">This user is zombie. Be careful!</small>
       <small v-if="isUnknown">We are not sure that this user is human.</small>
-      <small v-if="isHuman" class="text-muted"><span class="check-success">✔</span> This contact passed our security check. Is ts safe to communicate with him</small>
+      <small v-if="isHuman" class="text-muted"><span class="check-success">✔</span> This contact passed our security check. Is is safe to communicate with him</small>
     </div>
   </div>
 

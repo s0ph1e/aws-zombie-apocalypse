@@ -2,11 +2,13 @@
   {
     "username": "John",
     "type": "human",
+    "online": false,
     "location": null
   },
   {
     "username": "Kate",
     "type": "human",
+    "online": true,
     "location": null
   },
   {

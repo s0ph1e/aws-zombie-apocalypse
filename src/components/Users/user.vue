@@ -1,10 +1,13 @@
 <template>
 
-  <b-card class="mb-2" :variant="isZombie ? 'danger' : ''">
+  <b-card class="mb-2" :variant="isZombie ? 'danger' : isUnknown ? 'warning' : ''">
     <div class="user-list-item">
       <div class="avatar" v-bind:class="getAvatarClass()"></div>
       <div>
-        <h4>{{user.username}}</h4>
+        <p class="username">{{user.username}} <span v-if="user.online" class="online">○</span></p>
+        <small v-if="isZombie">This user is zombie. Be careful!</small>
+        <small v-if="isUnknown">We are not sure that this user is human.</small>
+        <small v-if="isHuman"><span class="check-success">✔</span> This contact passed our security check. Is ts safe to communicate with him</small>
       </div>
     </div>
   </b-card>
@@ -40,6 +43,9 @@
       },
       isHuman: function () {
         return this.user.type === 'human'
+      },
+      isUnknown: function () {
+        return !this.isHuman && !this.isZombie;
       }
     },
     methods: {
@@ -62,6 +68,7 @@
   .user-list-item {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 
   .avatar {
@@ -93,6 +100,34 @@
     }
     &.human-avatar-4 {
       background-image: url('../../assets/human-avatar-4.png');
+    }
+  }
+
+  .online {
+    font-size: 8px;
+    vertical-align: middle;
+    color: forestgreen;
+    animation: blinking 2s ease-in-out 0s infinite;
+  }
+
+  .username {
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+  }
+  .check-success {
+    color: forestgreen;
+  }
+
+  @keyframes blinking {
+    0% {
+      opacity: 0
+    }
+    50% {
+      opacity: 1
+    }
+    100% {
+      opacity: 0
     }
   }
 

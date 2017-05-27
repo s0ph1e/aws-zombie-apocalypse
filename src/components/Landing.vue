@@ -75,7 +75,7 @@
         const options = {username, password, secret}
 
         this.$http.post('signup', options).then(({body}) => {
-          console.log(body)
+          localStorage.setItem('token', body.jwt)
         }).catch(() => {
           alert('something went wrong')
         }).finally(() => {

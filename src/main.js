@@ -13,6 +13,14 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 Vue.http.options.root = 'https://v64xoy3f86.execute-api.eu-west-1.amazonaws.com/dev'
 
+Vue.http.interceptors.push(function (request, next) {
+  const token = localStorage.getItem('token')
+  if (token) {
+    request.headers.set('Authorization', `Bearer: ${token}`)
+  }
+  next()
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

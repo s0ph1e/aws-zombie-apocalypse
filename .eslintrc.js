@@ -17,6 +17,7 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    'semi': 1,
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await

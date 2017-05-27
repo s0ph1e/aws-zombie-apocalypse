@@ -1,0 +1,22 @@
+[
+  {
+    "username": "John",
+    "type": "human",
+    "location": null
+  },
+  {
+    "username": "Kate",
+    "type": "human",
+    "location": null
+  },
+  {
+    "username": "Dan",
+    "type": "zombie",
+    "location": null
+  },
+  {
+    "username": "Sophia",
+    "type": null,
+    "location": null
+  }
+]

@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import App from '@/components/App.vue'
-// import Profile from '@/components/profile'
 import Landing from '@/components/Landing.vue'
-import Home from '@/components/home'
+import Users from '@/components/Users'
 
 Vue.use(Router)
 
@@ -21,7 +20,11 @@ export default new Router({
       children: [
         {
           path: '/',
-          component: Home
+          component: Users
+        },
+        {
+          path: 'contacts',
+          component: Users
         }
       ]
     }

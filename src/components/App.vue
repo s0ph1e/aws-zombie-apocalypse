@@ -36,12 +36,17 @@
 </template>
 
 <script>
+  import notificationSubscriptionService from '../utils/notificationSubscription'
+  import registerNotificationsWorker from '../utils/registerNotificationsWorker'
+
   export default {
     name: 'app',
     created: function () {
       const isLoggedIn = localStorage.getItem('token')
       if (!isLoggedIn) {
         this.$router.push('/')
+      } else {
+        registerNotificationsWorker(notificationSubscriptionService)
       }
     },
     methods: {

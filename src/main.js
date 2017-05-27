@@ -31,6 +31,3 @@ new Vue({
   components: { Landing }
 })
 
-import notificationSubscriptionService from './utils/notificationSubscription'
-import registerNotificationsWorker from './utils/registerNotificationsWorker'
-registerNotificationsWorker(notificationSubscriptionService)

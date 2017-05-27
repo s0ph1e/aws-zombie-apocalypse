@@ -3,86 +3,26 @@
     <div class="overlay"></div>
     <div class="content">
       <b-button variant="success" size="lg" v-if="!displayLoginForm" @click="toggleShowForm">Survive!</b-button>
-      <div v-if="displayLoginForm" class="login-form">
-        <b-form-input type="text" placeholder="Enter your name" v-model="username"></b-form-input>
-        <br>
-        <b-form-input type="password" placeholder="Enter your password" v-model="password"></b-form-input>
-        <br>
-        <div class="secret-question-container">
-          <p>Select your favourite meal:</p>
-
-          <div class="row">
-            <div class="row option-container">
-              <input type="radio" id="brain" value="brain" v-model="selectedSecret">
-              <label for="brain" class="label brain-label">Brains</label>
-            </div>
-
-            <div class="row option-container">
-              <input type="radio" id="other" value="other" v-model="selectedSecret">
-              <label for="other" class="label other-label">Other</label>
-            </div>
-          </div>
-
-          <b-form-input v-if="displayCustomSecretField" type="text" placeholder="Enter your favourite meal" v-model="customSecret"></b-form-input>
-          <br>
-
-          <b-button variant="success" :block="true" :disabled="!signupEnabled" @click="signup">Signup</b-button>
-        </div>
-      </div>
+      <Login v-if="displayLoginForm"/>
     </div>
   </div>
 </template>
 
 <script>
+  import Login from './Login'
   export default {
     name: 'landing',
     data () {
       return {
-        displayLoginForm: false,
-
-        username: '',
-        password: '',
-        selectedSecret: null,
-        customSecret: null,
-
-        secretOptions: [{
-          text: 'Brains',
-          value: 'brains'
-        }, {
-          text: 'Something else',
-          value: 'other'
-        }]
-      }
-    },
-    computed: {
-      displayCustomSecretField: function () {
-        return this.selectedSecret === 'other'
-      },
-      secret: function () {
-        return this.displayCustomSecretField ? this.customSecret : this.selectedSecret
-      },
-      signupEnabled: function () {
-        return this.username && this.password && this.secret
+        displayLoginForm: false
       }
     },
     methods: {
       toggleShowForm () {
         this.displayLoginForm = !this.displayLoginForm
-      },
-
-      signup () {
-        const {username, password, secret} = this
-        const options = {username, password, secret}
-
-        this.$http.post('signup', options).then(({body}) => {
-          localStorage.setItem('token', body.jwt)
-        }).catch(() => {
-          alert('something went wrong')
-        }).finally(() => {
-          console.log('finally')
-        })
       }
-    }
+    },
+    components: { Login }
   }
 </script>
 

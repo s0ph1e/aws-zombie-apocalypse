@@ -50,74 +50,56 @@
 
     & .content {
       z-index: 1;
-      color: white;
-
-      .login-form {
-        padding: 40px;
-        background: black;
-        opacity: 0.8;
-      }
-
-      .secret-question-container {
-        .row {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .option-container {
-          width: 150px;
-        }
-
-        .label {
-          display: block;
-          min-height: 60px;
-          width: 50px;
-          margin-left: 10px;
-          padding-top: 45px;
-          text-align: center;
-        }
-
-        .brain-label {
-          background: url('../assets/brain.png') top center;
-          background-size: 40px 40px;
-          background-repeat: no-repeat;
-        }
-
-        .other-label {
-          background: url('../assets/meal.png') top center;
-          background-size: 40px 40px;
-          background-repeat: no-repeat;
-        }
-      }
-
     }
-  }
 
-  @keyframes shadow1 {
-    0%   {opacity: 0.9}
-    10%  {opacity: 0.8}
-    15%  {opacity: 0}
-    17%  {opacity: 1}
-    18%  {opacity: 0.1}
-    25%  {opacity: 1}
-    89%  {opacity: 1}
-    90%  {opacity: 0.2}
-    100% {opacity: 1}
-  }
-
-  @keyframes shadow2 {
-    0%   {filter: grayscale(30%)}
-    60%  {filter: grayscale(70%)}
-    100% {filter: grayscale(0%)}
-  }
-  @keyframes pulsate{
-    0%{
-      transform: scale(1);
+    @keyframes shadow1 {
+      0% {
+        opacity: 0.9
+      }
+      10% {
+        opacity: 0.8
+      }
+      15% {
+        opacity: 0
+      }
+      17% {
+        opacity: 1
+      }
+      18% {
+        opacity: 0.1
+      }
+      25% {
+        opacity: 1
+      }
+      89% {
+        opacity: 1
+      }
+      90% {
+        opacity: 0.2
+      }
+      100% {
+        opacity: 1
+      }
     }
-    100%{
-      transform: scale(1.2);
+
+    @keyframes shadow2 {
+      0% {
+        filter: grayscale(30%)
+      }
+      60% {
+        filter: grayscale(70%)
+      }
+      100% {
+        filter: grayscale(0%)
+      }
+    }
+    @keyframes pulsate {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.2);
+      }
     }
   }
 </style>

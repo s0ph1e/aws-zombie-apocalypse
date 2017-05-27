@@ -1,5 +1,6 @@
 <template>
     <div class="login-form">
+      <p>{{ isLoginForm ? 'Login' : 'Registration'}}</p>
       <b-form-input type="text" placeholder="Enter your name" v-model="username"></b-form-input>
       <br>
       <b-form-input type="password" placeholder="Enter your password" v-model="password"></b-form-input>
@@ -22,7 +23,10 @@
         <b-form-input v-if="displayCustomSecretField" type="text" placeholder="Enter your favourite meal" v-model="customSecret"></b-form-input>
         <br>
 
-        <b-button variant="success" :block="true" :disabled="!signupEnabled" @click="signup">Signup</b-button>
+        <b-button variant="success" :block="true" :disabled="!loginEnabled" @click="login">{{ isLoginForm ? 'LOG IN' : 'SIGN UP'}}</b-button>
+        <br>
+
+        <a href="#" @click="switchFormType">{{ isLoginForm ? 'Don\'t have an account? Sign up for free' : 'Have account? Login!'}}</a>
       </div>
     </div>
 </template>
@@ -49,13 +53,19 @@
       }
     },
     computed: {
+      isLoginForm: function () {
+        return this.type === 'login'
+      },
+      isSignupForm: function () {
+        return this.type === 'signup'
+      },
       displayCustomSecretField: function () {
         return this.selectedSecret === 'other'
       },
       secret: function () {
         return this.displayCustomSecretField ? this.customSecret : this.selectedSecret
       },
-      signupEnabled: function () {
+      loginEnabled: function () {
         return this.username && this.password && this.secret
       }
     },
@@ -64,11 +74,12 @@
         this.type = (this.type === 'login') ? 'signup' : 'login'
       },
 
-      signup () {
+      login () {
         const {username, password, secret} = this
         const options = {username, password, secret}
+        const action = this.isLoginForm ? 'login' : 'signup'
 
-        this.$http.post('signup', options).then(({body}) => {
+        this.$http.post(action, options).then(({body}) => {
           localStorage.setItem('token', body.jwt)
         }).catch(() => {
           alert('something went wrong')
@@ -81,97 +92,45 @@
 </script>
 
 <style lang="scss" scoped>
-  #landing {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
+  .login-form {
+    min-width: 350px;
+    padding: 40px;
+    color: white;
     background: black;
-
-    & .overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('../assets/zombie-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      animation: shadow1 2s linear 3s infinite, shadow2 5s ease-in-out 2s 3, pulsate 7s ease-in 10s 1;
-      animation-fill-mode: forwards;
-    }
-
-    & .content {
-      z-index: 1;
-      color: white;
-
-      .login-form {
-        padding: 40px;
-        background: black;
-        opacity: 0.8;
-      }
-
-      .secret-question-container {
-        .row {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .option-container {
-          width: 150px;
-        }
-
-        .label {
-          display: block;
-          min-height: 60px;
-          width: 50px;
-          margin-left: 10px;
-          padding-top: 45px;
-          text-align: center;
-        }
-
-        .brain-label {
-          background: url('../assets/brain.png') top center;
-          background-size: 40px 40px;
-          background-repeat: no-repeat;
-        }
-
-        .other-label {
-          background: url('../assets/meal.png') top center;
-          background-size: 40px 40px;
-          background-repeat: no-repeat;
-        }
-      }
-
-    }
+    opacity: 0.8;
   }
 
-  @keyframes shadow1 {
-    0%   {opacity: 0.9}
-    10%  {opacity: 0.8}
-    15%  {opacity: 0}
-    17%  {opacity: 1}
-    18%  {opacity: 0.1}
-    25%  {opacity: 1}
-    89%  {opacity: 1}
-    90%  {opacity: 0.2}
-    100% {opacity: 1}
-  }
-
-  @keyframes shadow2 {
-    0%   {filter: grayscale(30%)}
-    60%  {filter: grayscale(70%)}
-    100% {filter: grayscale(0%)}
-  }
-  @keyframes pulsate{
-    0%{
-      transform: scale(1);
+  .secret-question-container {
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
     }
-    100%{
-      transform: scale(1.2);
+
+    .option-container {
+      width: 150px;
+    }
+
+    .label {
+      display: block;
+      min-height: 60px;
+      width: 50px;
+      margin-left: 10px;
+      padding-top: 45px;
+      text-align: center;
+    }
+
+    .brain-label {
+      background: url('../assets/brain.png') top center;
+      background-size: 40px 40px;
+      background-repeat: no-repeat;
+    }
+
+    .other-label {
+      background: url('../assets/meal.png') top center;
+      background-size: 40px 40px;
+      background-repeat: no-repeat;
     }
   }
 </style>

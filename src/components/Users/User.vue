@@ -1,70 +1,56 @@
 <template>
 
-  <div class="user-list-item" v-bind:class="isZombie ? 'danger' : isUnknown ? 'warning' : ''">
-    <div class="avatar" v-bind:class="getAvatarClass()"></div>
+  <div class="user-list-item" v-bind:class="isZombie ? 'danger' : isUnknown ? 'warning' : ''" @click="openConversation">
+    <UserAvatar v-bind:user="user" />
     <div>
       <span class="username">{{user.username}} <span v-if="user.online" class="online">○</span></span>
       <br>
       <small v-if="isZombie">This user is zombie. Be careful!</small>
       <small v-if="isUnknown">We are not sure that this user is human.</small>
-      <small v-if="isHuman"><span class="check-success">✔</span> This contact passed our security check. Is ts safe to communicate with him</small>
+      <small v-if="isHuman" class="text-muted"><span class="check-success">✔</span> This contact passed our security check. Is ts safe to communicate with him</small>
     </div>
   </div>
 
 </template>
 
 <script>
-  const zombieAvatars = [
-    'zombie-avatar-1',
-    'zombie-avatar-2',
-    'zombie-avatar-3'
-  ]
-
-  const humanAvatars = [
-    'human-avatar-1',
-    'human-avatar-2',
-    'human-avatar-3',
-    'human-avatar-4'
-  ]
-
-  const unknownAvatar = '../../assets/unknown-avatar.png'
-
-  function randomArrayElement (arr) {
-    return arr[Math.floor(Math.random() * arr.length)]
-  }
+  import UserAvatar from './UserAvatar.vue'
 
   export default {
     name: 'user',
     props: ['user'],
     computed: {
       isZombie: function () {
-        return this.user.type === 'zombie'
+        return this.user.userType === 'zombie'
       },
       isHuman: function () {
-        return this.user.type === 'human'
+        return this.user.userType === 'human'
       },
       isUnknown: function () {
-        return !this.isHuman && !this.isZombie;
+        return !this.isHuman && !this.isZombie
       }
     },
     methods: {
-      getAvatarClass: function () {
-        switch (this.user.type) {
-          case 'zombie':
-            return randomArrayElement(zombieAvatars)
-          case 'human':
-            return randomArrayElement(humanAvatars)
-          default:
-            return unknownAvatar
+      openConversation: function () {
+        if (this.isZombie) {
+          alert('Be careful, don\'t speak with zombies!')
+        } else if (this.isUnknown) {
+          if (confirm('We can\'t guarantee he is human, be careful')) {
+            this.$router.push(`/app/chat-with/${this.user.id}`)
+          }
+        } else {
+          this.$router.push(`/app/chat-with/${this.user.id}`)
         }
       }
-    }
+    },
+    components: { UserAvatar }
   }
 </script>
 
 <style lang="scss" scoped>
 
   .user-list-item {
+    cursor: pointer;
     border: 1px solid #ccc;
 
     margin-bottom: 5px;
@@ -106,8 +92,8 @@
 
   .avatar {
     display: block;
-    width: 32px;
-    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
     margin-right: 10px;
 
     background-image: url('../../assets/unknown-avatar.png');

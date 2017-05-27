@@ -7,15 +7,19 @@
 </template>
 
 <script>
-  import contacts from './users.json'
-  import User from './user'
+  import User from './User'
 
   export default {
     name: 'users',
     data: function () {
       return {
-        contacts
+        contacts: []
       }
+    },
+    created: function () {
+      this.$http.get('chat/userlist').then(({body}) => {
+        this.contacts = body
+      }).catch(console.log)
     },
     components: { User }
   }

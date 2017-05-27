@@ -16,7 +16,7 @@ Vue.http.options.root = 'https://v64xoy3f86.execute-api.eu-west-1.amazonaws.com/
 Vue.http.interceptors.push(function (request, next) {
   const token = localStorage.getItem('token')
   if (token) {
-    request.headers.set('Authorization', `Bearer: ${token}`)
+    request.headers.set('Authorization', token)
   }
   next()
 })

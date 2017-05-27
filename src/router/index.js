@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import App from '@/components/App.vue'
 import Landing from '@/components/Landing.vue'
 import Users from '@/components/Users'
+import Conversations from '@/components/Conversations'
+import Conversation from '@/components/Conversations/Conversation'
 
 Vue.use(Router)
 
@@ -25,6 +27,14 @@ export default new Router({
         {
           path: 'contacts',
           component: Users
+        },
+        {
+          path: 'chats',
+          component: Conversations
+        },
+        {
+          path: 'chat-with/:user_id',
+          component: Conversation
         }
       ]
     }

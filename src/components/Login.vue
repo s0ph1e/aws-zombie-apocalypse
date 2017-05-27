@@ -77,7 +77,7 @@
       login () {
         const {username, password, secret} = this
         const options = {username, password, secret}
-        const action = this.isLoginForm ? 'login' : 'signup'
+        const action = this.isLoginForm ? 'signin' : 'signup'
 
         this.$http.post(action, options).then(({body}) => {
           if (body.token) {

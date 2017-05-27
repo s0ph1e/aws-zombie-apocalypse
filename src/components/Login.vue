@@ -87,6 +87,12 @@
           console.log('finally')
         })
       }
+    },
+    created: function () {
+      const isLoggedIn = localStorage.getItem('token')
+      if (isLoggedIn) {
+        this.$router.push('app')
+      }
     }
   }
 </script>

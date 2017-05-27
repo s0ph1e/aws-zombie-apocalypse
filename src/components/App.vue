@@ -4,8 +4,8 @@
 
     <b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
-    <b-link class="navbar-brand" to="#">
-    <span>BootstrapVue</span>
+    <b-link class="navbar-brand" to="/">
+    <span class="logo">SURVIVE</span>
     </b-link>
 
     <b-collapse is-nav id="nav_collapse">
@@ -30,7 +30,9 @@
     </b-nav>
     </b-collapse>
     </b-navbar>
-    <router-view></router-view>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -39,3 +41,13 @@
     name: 'app'
   }
 </script>
+
+<style lang="scss" scoped>
+  .logo {
+    font-weight: bold;
+  }
+  .container {
+    padding-top: 20px;
+    max-width: 960px;
+  }
+</style>

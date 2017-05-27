@@ -7,13 +7,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Landing from './Main.vue'
 import router from './router'
 
-import './utils/registerNotificationsWorker'
+const apiRoot = 'https://v64xoy3f86.execute-api.eu-west-1.amazonaws.com/dev'
 
 Vue.use(VueResource)
 Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
-Vue.http.options.root = 'https://v64xoy3f86.execute-api.eu-west-1.amazonaws.com/dev'
+Vue.http.options.root = apiRoot
 
 Vue.http.interceptors.push(function (request, next) {
   const token = localStorage.getItem('token')
@@ -30,3 +30,7 @@ new Vue({
   template: '<Landing/>',
   components: { Landing }
 })
+
+import notificationSubscriptionService from './utils/notificationSubscription'
+import registerNotificationsWorker from './utils/registerNotificationsWorker'
+registerNotificationsWorker(notificationSubscriptionService)

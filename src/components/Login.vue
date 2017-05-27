@@ -80,7 +80,10 @@
         const action = this.isLoginForm ? 'login' : 'signup'
 
         this.$http.post(action, options).then(({body}) => {
-          localStorage.setItem('token', body.jwt)
+          if (body.token) {
+            localStorage.setItem('token', body.token)
+            this.$router.push('app')
+          }
         }).catch(() => {
           alert('something went wrong')
         }).finally(() => {

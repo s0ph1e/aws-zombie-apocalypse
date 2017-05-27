@@ -22,7 +22,7 @@
     </template>
 
     <b-dropdown-item to="#">Profile</b-dropdown-item>
-    <b-dropdown-item to="#">Signout</b-dropdown-item>
+    <b-dropdown-item v-on:click="logout">Log out</b-dropdown-item>
     </b-nav-item-dropdown>
 
     </b-nav>
@@ -36,7 +36,19 @@
 
 <script>
   export default {
-    name: 'app'
+    name: 'app',
+    created: function () {
+      const isLoggedIn = localStorage.getItem('token')
+      if (!isLoggedIn) {
+        this.$router.push('/')
+      }
+    },
+    methods: {
+      logout: function () {
+        localStorage.removeItem('token')
+        this.$router.push('/')
+      }
+    }
   }
 </script>
 

@@ -1,16 +1,15 @@
 <template>
 
-  <b-card class="mb-2" :variant="isZombie ? 'danger' : isUnknown ? 'warning' : ''">
-    <div class="user-list-item">
-      <div class="avatar" v-bind:class="getAvatarClass()"></div>
-      <div>
-        <p class="username">{{user.username}} <span v-if="user.online" class="online">○</span></p>
-        <small v-if="isZombie">This user is zombie. Be careful!</small>
-        <small v-if="isUnknown">We are not sure that this user is human.</small>
-        <small v-if="isHuman"><span class="check-success">✔</span> This contact passed our security check. Is ts safe to communicate with him</small>
-      </div>
+  <div class="user-list-item" v-bind:class="isZombie ? 'danger' : isUnknown ? 'warning' : ''">
+    <div class="avatar" v-bind:class="getAvatarClass()"></div>
+    <div>
+      <span class="username">{{user.username}} <span v-if="user.online" class="online">○</span></span>
+      <br>
+      <small v-if="isZombie">This user is zombie. Be careful!</small>
+      <small v-if="isUnknown">We are not sure that this user is human.</small>
+      <small v-if="isHuman"><span class="check-success">✔</span> This contact passed our security check. Is ts safe to communicate with him</small>
     </div>
-  </b-card>
+  </div>
 
 </template>
 
@@ -66,9 +65,43 @@
 <style lang="scss" scoped>
 
   .user-list-item {
+    border: 1px solid #ccc;
+
+    margin-bottom: 5px;
+    padding: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    &.danger {
+      color: rgba(255, 255, 255, 0.7);
+      background: lighten(#d9534f, 4%);
+    }
+    &.warning {
+      color: rgba(255, 255, 255, 0.7);
+      background: lighten(#f0ad4e, 4%);
+    }
+
+    .status {
+      font-size: 70%;
+    }
+
+    .online {
+      font-size: 8px;
+      vertical-align: middle;
+      color: forestgreen;
+      animation: blinking 2s ease-in-out 0s infinite;
+    }
+
+    .username {
+      margin: 0;
+      font-size: 120%;
+      font-weight: bold;
+    }
+    .check-success {
+      color: forestgreen;
+    }
+
   }
 
   .avatar {
@@ -103,21 +136,6 @@
     }
   }
 
-  .online {
-    font-size: 8px;
-    vertical-align: middle;
-    color: forestgreen;
-    animation: blinking 2s ease-in-out 0s infinite;
-  }
-
-  .username {
-    margin: 0;
-    font-size: 26px;
-    font-weight: bold;
-  }
-  .check-success {
-    color: forestgreen;
-  }
 
   @keyframes blinking {
     0% {

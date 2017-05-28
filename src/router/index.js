@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import App from '@/components/App.vue'
 import Landing from '@/components/Landing.vue'
 import Users from '@/components/Users'
+import UsersList from '@/components/Users/UsersList'
+import UsersMap from '@/components/Users/UsersMap'
 import Conversations from '@/components/Conversations'
 import Conversation from '@/components/Conversations/Conversation'
 
@@ -22,11 +24,17 @@ export default new Router({
       children: [
         {
           path: '/',
-          component: Users
-        },
-        {
-          path: 'contacts',
-          component: Users
+          component: Users,
+          children: [
+            {
+              path: 'contacts',
+              component: UsersList
+            },
+            {
+              path: 'map',
+              component: UsersMap
+            }
+          ]
         },
         {
           path: 'chats',

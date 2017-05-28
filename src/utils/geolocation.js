@@ -15,5 +15,7 @@ function geoSuccess (geo) {
 }
 
 function geoError (error) {
+  const kyiv = {latitude: 50.45, longitude: 30.52}
+  localStorage.setItem('location', JSON.stringify(kyiv))
   console.log('Geolocation Error occurred. Error code: ' + error.code)
 }

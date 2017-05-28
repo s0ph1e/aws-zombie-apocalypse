@@ -1,15 +1,15 @@
 <template>
 
-  <div class="user-list-item" v-bind:class="isZombie ? 'danger' : isUnknown ? 'warning' : ''" @click="openConversation">
+  <div class="user-list-item" v-bind:class="isZombie ? 'danger' : isUnknown ? 'warning' : ''">
     <UserAvatar v-bind:user="user" />
-    <div class="main-block">
+    <div class="main-block" @click="openConversation">
       <span class="username">{{user.username}} <span v-if="user.online" class="online">○</span></span>
       <br>
       <small v-if="isZombie">This user is zombie. Be careful!</small>
       <small v-if="isUnknown">We are not sure that this user is human.</small>
       <small v-if="isHuman" class="text-muted"><span class="check-success">✔</span> This contact passed our security check. Is is safe to communicate with him</small>
     </div>
-    <span v-if="user.distance < Infinity" class="has-location">
+    <span v-if="user.distance < Infinity" class="has-location" @click="openMap">
       {{Math.ceil(user.distance)}}km
     </span>
   </div>
@@ -44,6 +44,9 @@
         } else {
           this.$router.push(`/app/chat-with/${this.user.id}`)
         }
+      },
+      openMap: function () {
+        this.$router.push('/app/map')
       }
     },
     components: { UserAvatar }

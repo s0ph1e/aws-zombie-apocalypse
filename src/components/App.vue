@@ -12,6 +12,7 @@
 
     <b-nav is-nav-bar>
     <b-nav-item to="/app/contacts">Contacts</b-nav-item>
+    <b-nav-item to="/app/map">Map</b-nav-item>
     <b-nav-item to="/app/chats">Chats</b-nav-item>
     </b-nav>
 

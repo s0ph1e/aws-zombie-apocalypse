@@ -2,14 +2,12 @@
   <div id="users">
     <b-form-select :options="filterOptions" v-model="filterSelected" class="mb-3"></b-form-select>
 
-    <div v-for="contact in sortedContacts">
-      <User v-bind:user="contact"/>
-    </div>
+    <router-view v-bind:contacts="sortedContacts"/>
   </div>
 </template>
 
 <script>
-  import User from './User'
+  import UsersList from './UsersList'
 
   export default {
     name: 'users',
@@ -49,8 +47,7 @@
     },
     created: function () {
       const userLocation = localStorage.getItem('location')
-      // Kyiv 50.4501° N, 30.5234
-      const currentLocation = userLocation ? JSON.parse(userLocation) : {latitude: 50.45, longitude: 30.52}
+      const currentLocation = userLocation && JSON.parse(userLocation)
 
       this.$http.get('chat/userlist').then(({body}) => {
         if (Array.isArray(body)) {
@@ -67,12 +64,13 @@
               fc.distance = Infinity
             }
           })
+          console.log(this.contacts);
         } else {
           console.log('something went wrong')
         }
       }).catch(console.log)
     },
-    components: { User }
+    components: { UsersList }
   }
 
   function calculateDistance (lat1, lon1, lat2, lon2, unit) {

@@ -38,6 +38,7 @@
 <script>
   import notificationSubscriptionService from '../utils/notificationSubscription'
   import registerNotificationsWorker from '../utils/registerNotificationsWorker'
+  import '../utils/geolocation'
 
   export default {
     name: 'app',

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Conversation with {{ userId }}</h3>
+    <h4>Conversation with {{ userId }}</h4>
     <div class="messages-container">
       <div v-for="message in messages" class="message">
         <UserAvatar v-bind:user="message.author" />
@@ -9,8 +9,8 @@
     </div>
 
     <div class="create-message">
-      <b-form-input textarea :rows="3" v-model="message" placeholder="Type your message here.."></b-form-input>
-      <b-button variant="success" @click="send">Send</b-button>
+      <b-form-input textarea :rows="3" v-model="message" placeholder="Type your message here.." class="rounded-0"></b-form-input>
+      <b-button variant="success" @click="send" class="rounded-0">Send</b-button>
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@
     },
     methods: {
       fetch: function () {
-        this.$http.get(`conversation/with-user/${this.userId}`).then(({body}) => {
+        this.$http.get(`chat/with-user/${this.userId}`).then(({body}) => {
           console.log(body)
         }).catch(console.log).finally(() => {
           this.title = `Conversation with user ${this.userId}`

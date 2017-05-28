@@ -2,13 +2,16 @@
 
   <div class="user-list-item" v-bind:class="isZombie ? 'danger' : isUnknown ? 'warning' : ''" @click="openConversation">
     <UserAvatar v-bind:user="user" />
-    <div>
+    <div class="main-block">
       <span class="username">{{user.username}} <span v-if="user.online" class="online">○</span></span>
       <br>
       <small v-if="isZombie">This user is zombie. Be careful!</small>
       <small v-if="isUnknown">We are not sure that this user is human.</small>
       <small v-if="isHuman" class="text-muted"><span class="check-success">✔</span> This contact passed our security check. Is is safe to communicate with him</small>
     </div>
+    <span v-if="user.distance < Infinity" class="has-location">
+      {{Math.ceil(user.distance)}}km
+    </span>
   </div>
 
 </template>
@@ -87,7 +90,21 @@
     .check-success {
       color: forestgreen;
     }
-
+    .has-location {
+      display: block;
+      min-width: 20px;
+      min-height: 20px;
+      background-image: url('../../assets/map.png');
+      background-size: 20px 20px;
+      background-repeat: no-repeat;
+      background-position: top center;
+      opacity: 0.5;
+      font-size: 70%;
+      padding-top: 23px;
+    }
+    .main-block {
+      flex-grow: 1;
+    }
   }
 
   .avatar {

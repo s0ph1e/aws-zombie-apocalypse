@@ -83,6 +83,8 @@
           if (body.token) {
             localStorage.setItem('token', body.token)
             this.$router.push('app')
+          } else {
+            console.log('something went wrong')
           }
         }).catch(() => {
           alert('something went wrong')

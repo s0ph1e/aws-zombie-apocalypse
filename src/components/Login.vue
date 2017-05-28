@@ -82,9 +82,10 @@
         this.$http.post(action, options).then(({body}) => {
           if (body.token) {
             localStorage.setItem('token', body.token)
+            localStorage.setItem('username', username)
             this.$router.push('app')
           } else {
-            console.log('something went wrong')
+            alert('Incorrect username or password, try again')
           }
         }).catch(() => {
           alert('something went wrong')

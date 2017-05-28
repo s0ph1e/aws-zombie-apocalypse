@@ -95,7 +95,7 @@
     }
     .has-location {
       display: block;
-      min-width: 20px;
+      min-width: 40px;
       min-height: 20px;
       background-image: url('../../assets/map.png');
       background-size: 20px 20px;
@@ -104,6 +104,7 @@
       opacity: 0.5;
       font-size: 70%;
       padding-top: 23px;
+      text-align:center;
     }
     .main-block {
       flex-grow: 1;

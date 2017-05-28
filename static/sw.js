@@ -1,7 +1,6 @@
 self.addEventListener('push', function (event) {
   const text = event.data.text()
-  console.log('[Service Worker] Push Received.')
-  console.log(`[Service Worker] Push had this data: "${text}"`)
+  console.log(`[Service Worker]Push Received. "${text}"`)
 
   const title = 'Zombie survive app'
   const options = {

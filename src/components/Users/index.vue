@@ -1,6 +1,6 @@
 <template>
   <div id="users">
-    <b-form-select :options="filterOptions" v-model="filterSelected" class="mb-3"></b-form-select>
+    <div><b-form-select :options="filterOptions" v-model="filterSelected" class="mb-3"></b-form-select></div>
 
     <router-view v-bind:contacts="sortedContacts"/>
   </div>

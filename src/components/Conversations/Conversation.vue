@@ -17,14 +17,17 @@
 
 <script>
   import UserAvatar from '../Users/UserAvatar.vue'
+  let stopFetch;
 
   export default {
     name: 'conversation',
     data: function () {
       return {
+       // lastMessageTime: null,
         conversationId: null,
         userId: this.$route.params.user_id,
         user: null,
+        title: '',
         messages: [],
         message: ''
       }
@@ -32,20 +35,46 @@
     components: { UserAvatar },
     created: function () {
       this.fetch()
+      stopFetch = setInterval(this.fetch, 5000)
+    },
+    beforeDestroy: function () {
+      clearInterval(stopFetch)
     },
     methods: {
+      fetchById: function () {
+        let url = `chat/${this.conversationId}`
+//        if (this.lastMessageTime) {
+//          // url = `${url}?lastMessageTime=${this.lastMessageTime}`
+//        }
+
+        this.$http.get(url).then(({body}) => {
+//          if (this.lastMessageTime) {
+//            this.messages = body
+//          } else {
+//            this.messages = body
+//          }
+          this.messages = body
+
+ //         this.lastMessageTime = this.messages[this.messages.length - 1].timestamp
+        })
+      },
       fetch: function () {
-        this.$http.get(`chat/with-user/${this.userId}`).then(({body}) => {
+        if (this.conversationId) {
+          return this.fetchById()
+        }
+
+        return this.$http.get(`chat/with-user/${this.userId}`).then(({body}) => {
           this.title = body.title
           this.conversationId = body.id
 
-          this.$http.get(`chat/${this.conversationId}`).then(({body}) => {
-            this.messages = body
-          })
+          this.fetchById()
         }).catch(console.log)
       },
       send: function () {
-        this.$http.post(`chat/${this.conversationId}`, {message: this.message}).then(this.fetch)
+        this.$http.post(`chat/${this.conversationId}`, {message: this.message}).then(() => {
+          this.message = ''
+          this.fetch()
+        })
       }
     }
   }

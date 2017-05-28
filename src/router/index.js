@@ -27,6 +27,10 @@ export default new Router({
           component: Users,
           children: [
             {
+              path: '/',
+              component: UsersList
+            },
+            {
               path: 'contacts',
               component: UsersList
             },

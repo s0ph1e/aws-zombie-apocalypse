@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Conversation with {{ userId }}</h4>
+    <h4>{{title}}</h4>
     <div class="messages-container">
       <div v-for="message in messages" class="message">
         <UserAvatar v-bind:user="message.author" />
@@ -22,9 +22,11 @@
     name: 'conversation',
     data: function () {
       return {
+        conversationId: null,
         userId: this.$route.params.user_id,
         user: null,
-        messages: []
+        messages: [],
+        message: ''
       }
     },
     components: { UserAvatar },
@@ -34,34 +36,16 @@
     methods: {
       fetch: function () {
         this.$http.get(`chat/with-user/${this.userId}`).then(({body}) => {
-          console.log(body)
-        }).catch(console.log).finally(() => {
-          this.title = `Conversation with user ${this.userId}`
-          this.messages = [
-            { text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,',
-              author: {
-                id: 1,
-                username: 'John',
-                type: 'human'
-              }
-            },
-            { text: 'nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo conse',
-              author: {
-                id: 1,
-                username: 'John',
-                type: 'human'
-              }},
-            { text: 'atis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam ',
-              author: {
-                id: 1,
-                username: 'John',
-                type: 'human'
-              }}
-          ]
-        })
+          this.title = body.title
+          this.conversationId = body.id
+
+          this.$http.get(`chat/${this.conversationId}`).then(({body}) => {
+            this.messages = body
+          })
+        }).catch(console.log)
       },
       send: function () {
-        console.log('sending')
+        this.$http.post(`chat/${this.conversationId}`, {message: this.message}).then(this.fetch)
       }
     }
   }

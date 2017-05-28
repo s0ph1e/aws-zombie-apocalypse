@@ -54,17 +54,15 @@
           this.contacts = body
           this.contacts.forEach((fc) => {
             if (fc.locations) {
-              const lastLocation = fc.locations[0].location
+              fc.lastLocation = fc.locations[fc.locations.length - 1].location
 
               fc.distance = calculateDistance(
                 currentLocation.latitude, currentLocation.longitude,
-                lastLocation.latitude, lastLocation.longitude, 'K')
-              console.log('calculated distance=' + fc.distance + fc.username)
+                fc.lastLocation.latitude, fc.lastLocation.longitude, 'K')
             } else {
               fc.distance = Infinity
             }
           })
-          console.log(this.contacts);
         } else {
           console.log('something went wrong')
         }

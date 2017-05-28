@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
+import * as VueGoogleMaps from 'vue2-google-maps'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -11,6 +12,9 @@ const apiRoot = 'https://v64xoy3f86.execute-api.eu-west-1.amazonaws.com/dev'
 
 Vue.use(VueResource)
 Vue.use(BootstrapVue)
+Vue.use(VueGoogleMaps, {load: {
+  key: 'AIzaSyAzUXzx4VUuPhBKLoNm4S6GfYkYyeXfNXM'
+}})
 
 Vue.config.productionTip = false
 Vue.http.options.root = apiRoot
